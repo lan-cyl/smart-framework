@@ -6,12 +6,12 @@
 
 需要配置文件smart.properties，字段如下：
 ···
-# JDBC connection
+\# JDBC connection
 smart.framework.jdbc.driver=
 smart.framework.jdbc.url=
 smart.framework.jdbc.username=
 smart.framework.jdbc.password=
-# app path
+\# app path
 smart.framework.app.base_package=
 smart.framework.app.jsp_path=
 smart.framework.asset_path=

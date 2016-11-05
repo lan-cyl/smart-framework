@@ -45,10 +45,18 @@ Data，封装了要返回的对象，以Json串的形式返回
 
 作用于自动注入的参数
 
-## AOP相关功能
+## AOP相关功能（仅能作用于类，可通过重写intercept方法过滤关心的方法）
 
-1.继承AspectProxy类
+1.继承AspectProxy类，重写相关方法（begin\intercept\before\after\error\end）
 
-## Transaction相关功能
+2.Aspect注解，值为要切入的注解，只能是类注解哦
 
-Transaction注解，作用于方法
+## Transaction相关功能（作用于方法）
+
+1.在方法上加Transaction注解
+
+不足：
+
+1.切面只能切到 类注解，即在类上加相应注解才能切入，不能对应到方法
+
+2.事物功能太死板，作用于Service注解的类，然后过滤方法上加Transaction注解的方法

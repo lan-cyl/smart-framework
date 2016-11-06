@@ -3,6 +3,7 @@ package org.smart4j.learn.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.smart4j.framework.annotation.Service;
+import org.smart4j.framework.annotation.Transaction;
 import org.smart4j.framework.helper.DatabaseHelper;
 import org.smart4j.learn.model.Customer;
 
@@ -45,6 +46,7 @@ public class CustomerService {
      * @param fieldMap 客户字段
      * @return
      */
+    @Transaction
     public boolean createCustomer(Map<String, Object> fieldMap) {
         return DatabaseHelper.insertEntity(Customer.class, fieldMap);
     }
@@ -56,6 +58,7 @@ public class CustomerService {
      * @param fieldMap 客户字段
      * @return
      */
+    @Transaction
     public boolean updataCustomer(long id, Map<String, Object> fieldMap) {
         return DatabaseHelper.updateEntity(Customer.class, id, fieldMap);
     }
@@ -66,6 +69,7 @@ public class CustomerService {
      * @param id 客户ID
      * @return
      */
+    @Transaction
     public boolean deleteCustomer(long id) {
         return DatabaseHelper.deleteEntity(Customer.class, id);
     }

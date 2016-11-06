@@ -1,62 +1,47 @@
 # smart-framework
 
-在看《架构探险：从零开始写Java Web框架》
+基于《架构探险：从零开始写Java Web框架》这本书整理的代码，实现方式也略有不同
 
-1.配置文件
+搭建的maven项目，demo和framework是俩module，demo依赖framework，框架用法可参考demo
 
-需要配置文件smart.properties，字段如下：
-···
-\# JDBC connection
-smart.framework.jdbc.driver=
-smart.framework.jdbc.url=
-smart.framework.jdbc.username=
-smart.framework.jdbc.password=
-\# app path
-smart.framework.app.base_package=
-smart.framework.app.jsp_path=
-smart.framework.asset_path=
-···
+下面说下该framework的特性：
 
-## DispatcherServlet完成请求参数封装、分发、返回
+#### 1.轻量
 
-2.Controller注解
+```
+// 仅依赖如下开源项目
+jstl:1.2
+slf4j-log4j12:1.7.19
+mysql-connector-java:5.1.38
+jackson-databind:2.8.4
+commons-lang3:3.1
+commons-collections:3.2.1
+commons-dbutils:1.6
+commons-dbcp:1.4
+cglib:3.2.4
+```
 
-作用于类，表示 前台页面请求的处理类  
+#### 2.功能完善
 
-3.Action注解
+```
+@Controller
+@Action(get:/customer)
+@Service
+@Inject
+@Aspect(Controller.class) 标记类为切面，现在用起来还是稍麻烦，参看demo里的ControllerAspect类
+@Transaction 作用于方法，且类被@Service标记
+```
 
-作用于方法，表示 处理对应请求的处理方法
+### 改进：
 
-值的格式为（method:/path_info）, 例如 @Action("get:/customer")
+1.Transaction的实现基于AspectProxy框架，重写intercept方法来过滤带有事物注解的方法
 
-3.Param类
-
-框架统一将请求参数封装到Param类中
-
-4.Data/View类
-
-框架统一返回处理结果
-
-View，表示视图
-
-Data，封装了要返回的对象，以Json串的形式返回
-
-5.Inject注解
-
-作用于自动注入的参数
-
-## AOP相关功能（仅能作用于类，可通过重写intercept方法过滤关心的方法）
-
-1.继承AspectProxy类，重写相关方法（begin\intercept\before\after\error\end）
-
-2.Aspect注解，值为要切入的注解，只能是类注解哦
-
-## Transaction相关功能（作用于方法）
-
-1.在方法上加Transaction注解
-
-不足：
+### 不足：
 
 1.切面只能切到 类注解，即在类上加相应注解才能切入，不能对应到方法
 
+要想过滤方法，用户需在自己的切面类中重写intercept方法
+
 2.事物功能太死板，作用于Service注解的类，然后过滤方法上加Transaction注解的方法
+
+且仅提供一种基本的事务功能

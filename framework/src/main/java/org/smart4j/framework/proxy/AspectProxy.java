@@ -27,7 +27,7 @@ public abstract class AspectProxy implements Proxy {
             if (intercept(targetClass, targetMethod, params)) {
                 before(targetClass, targetMethod, params);
                 result = proxyChain.doProxyChain();
-                after(targetClass, targetMethod, params);
+                after(targetClass, targetMethod, params, result);
             } else {
                 result = proxyChain.doProxyChain();
             }
@@ -55,7 +55,7 @@ public abstract class AspectProxy implements Proxy {
     public void before(Class<?> targetClass, Method targetMethod, Object[] params) {
     }
 
-    public void after(Class<?> targetClass, Method targetMethod, Object[] params) {
+    public void after(Class<?> targetClass, Method targetMethod, Object[] params, Object result) {
     }
 
     public void error(Class<?> targetClass, Method targetMethod, Object[] params, Throwable e) {

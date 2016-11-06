@@ -38,11 +38,11 @@ public class CustomerController {
     }
 
     @Action("get:/customer_create")
-    public View create() {
+    public View create(Param param) {
         return new View("customer_create.jsp");
     }
 
-    @Action("post:/customer_cureate")
+    @Action("post:/customer_createSubmit")
     public Data createSubmit(Param param) {
         boolean result = customerService.createCustomer(param.getMap());
         return new Data(result);
@@ -55,7 +55,7 @@ public class CustomerController {
         return new View("customer_edit.jsp").addModel("customer", customer);
     }
 
-    @Action("post:/customer_edit")
+    @Action("post:/customer_editSubmit")
     public Data editSubmit(Param param) {
         long id = param.getLong("id");
         boolean result = customerService.updataCustomer(id, param.getMap());

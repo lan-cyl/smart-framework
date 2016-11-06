@@ -9,8 +9,9 @@ public final class HelperLoader {
 
     public static void init() {
         ClassUtil.loadClass(ClassHelper.class.getName(), true);
-        ClassUtil.loadClass(BeanHelper.class.getName(), true);
+        ClassUtil.loadClass(AopHelper.class.getName(), true);
         ClassUtil.loadClass(IocHelper.class.getName(), true);
+        ClassUtil.loadClass(BeanHelper.class.getName(), true);
         ClassUtil.loadClass(ControllerHelper.class.getName(), true);
     }
 }

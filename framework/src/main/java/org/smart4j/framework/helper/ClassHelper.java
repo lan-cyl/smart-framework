@@ -5,6 +5,7 @@ import org.smart4j.framework.annotation.Controller;
 import org.smart4j.framework.annotation.Service;
 import org.smart4j.framework.util.ClassUtil;
 
+import java.lang.annotation.Annotation;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,6 +50,26 @@ public final class ClassHelper {
         Set<Class<?>> classes = new HashSet<Class<?>>();
         classes.addAll(getServiceClassSet());
         classes.addAll(getControllerClassSet());
+        return classes;
+    }
+
+    public static <T> Set<Class<T>> getClassSetByParent(Class<T> superClass) {
+        Set<Class<T>> classes = new HashSet<Class<T>>();
+        for (Class<?> cls : CLASS_SET) {
+            if (superClass.isAssignableFrom(cls) && !superClass.equals(cls)) {
+                classes.add((Class<T>) cls);
+            }
+        }
+        return classes;
+    }
+
+    public static Set<Class<?>> getClassSetByAnnotation(Class<? extends Annotation> annotationClass) {
+        Set<Class<?>> classes = new HashSet<Class<?>>();
+        for (Class<?> cls : CLASS_SET) {
+            if (cls.isAnnotationPresent(annotationClass)) {
+                classes.add(cls);
+            }
+        }
         return classes;
     }
 }

@@ -1,5 +1,7 @@
 package org.smart4j.framework.proxy;
 
+import org.smart4j.framework.annotation.Aspect;
+import org.smart4j.framework.annotation.Service;
 import org.smart4j.framework.annotation.Transaction;
 import org.smart4j.framework.helper.DatabaseHelper;
 
@@ -10,6 +12,7 @@ import java.lang.reflect.Method;
  *
  * Created by lan_cyl on 2016/11/4.
  */
+@Aspect(Service.class)
 public class TransactionProxy extends AspectProxy {
     private static final ThreadLocal<Boolean> FLAG_HOLDER = new ThreadLocal<Boolean>(){
         @Override
@@ -33,7 +36,7 @@ public class TransactionProxy extends AspectProxy {
     }
 
     @Override
-    public void after(Class<?> targetClass, Method targetMethod, Object[] params) {
+    public void after(Class<?> targetClass, Method targetMethod, Object[] params, Object result) {
         DatabaseHelper.commitTransaction();
     }
 

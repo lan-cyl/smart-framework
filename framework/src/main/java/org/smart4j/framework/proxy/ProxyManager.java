@@ -12,7 +12,8 @@ import java.util.List;
  */
 public class ProxyManager {
 
-    public static Object newProxy(final Class<?> targetClass, final List<Proxy> proxyChains) {
+    public static Object getProxy(final Class<?> targetClass, final List<Proxy> proxyChains) {
+
         return Enhancer.create(targetClass, new MethodInterceptor() {
             @Override
             public Object intercept(Object o, Method method, Object[] objects, MethodProxy methodProxy) throws Throwable {

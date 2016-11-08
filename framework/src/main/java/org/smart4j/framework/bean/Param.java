@@ -2,6 +2,7 @@ package org.smart4j.framework.bean;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.smart4j.framework.util.CastUtil;
+import org.smart4j.framework.util.CollectionUtil;
 
 import java.util.Map;
 
@@ -35,5 +36,9 @@ public class Param {
 
     public String getString(String name) {
         return CastUtil.castString(paramMap.get(name));
+    }
+
+    public boolean isEmpty() {
+        return CollectionUtil.isEmpty(paramMap);
     }
 }

@@ -24,8 +24,7 @@ public class CustomerController {
     private CustomerService customerService;
 
     @Action("get:/customer")
-    public View index(Param param) {
-        BeanHelper.getBeanMap();
+    public View index() {
         List<Customer> customers = customerService.getCustomerList();
         return new View("customer.jsp").addModel("customers", customers);
     }
@@ -38,7 +37,7 @@ public class CustomerController {
     }
 
     @Action("get:/customer_create")
-    public View create(Param param) {
+    public View create() {
         return new View("customer_create.jsp");
     }
 
